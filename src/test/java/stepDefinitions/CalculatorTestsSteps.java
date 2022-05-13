@@ -4,6 +4,7 @@ import enums.Operations;
 import helpers.CalculatorHelper;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,7 @@ public class CalculatorTestsSteps {
     private int totalInt;
     private double totalDouble;
     private CalculatorHelper calculator;
-    private ArrayList<Integer> firstListNum, secondListNum;
+    private ArrayList<Integer> firstListNum, secondListNum, listCalculations;
     private int firstCal, secondCal;
 
     @ParameterType("sum|difference")
@@ -78,24 +79,30 @@ public class CalculatorTestsSteps {
 
     @And("I use operator {operationType}")
     public void iUseOperationTypeOperator(Operations operator) {
+        int sum, diff;
+        listCalculations = new ArrayList<>();
+        for (int i = 0; i<firstListNum.size(); i++){
+            if (operator.name().equals("sum")){
+                sum = firstListNum.get(i) + secondListNum.get(i);
+//                System.out.println(sum);
+                listCalculations.add(sum);
+            } else {
+                diff = firstListNum.get(i) - secondListNum.get(i);
+//                System.out.println(diff);
+                listCalculations.add(diff);
+            }
 
-        if (operator.name().equals("sum")){
-            firstCal = firstListNum.get(0)+secondListNum.get(0);
-            secondCal = firstListNum.get(1)+secondListNum.get(1);
-        } else {
-            firstCal = firstListNum.get(0)-secondListNum.get(0);
-            secondCal = firstListNum.get(1)-secondListNum.get(1);
         }
     }
 
     @Then("I print the results")
     public void iPrintTheResults() {
-        String firstText = (firstCal > 0) ? String.format("Positive number is %s", firstCal)
-                        : String.format("Negative number is %s", firstCal);
-        String secText = (secondCal > 0) ? String.format("Positive number is %s", secondCal)
-                : String.format("Negative number is %s", secondCal);
+        String text = "", sign;
 
-        System.out.println(firstText);
-        System.out.println(secText);
+        for (int i = 0; i < listCalculations.size(); i++){
+            sign = (listCalculations.get(i) > 0) ? "Positive" : "Negative";
+            text = String.format("%s number is %s", sign, listCalculations.get(i));
+            System.out.println(text);
+        }
     }
 }
