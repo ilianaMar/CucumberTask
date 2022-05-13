@@ -13,7 +13,7 @@ public class CalculatorTestsSteps {
     private int totalInt;
     private double totalDouble;
     private CalculatorHelper calculator;
-    private ArrayList<Integer> firstListNum, secondListNum, listCalculations;
+    private ArrayList<Integer> listNum, listCalculations;
 
     @ParameterType("sum|difference")
     public Operations operationType(String operationType){
@@ -70,23 +70,25 @@ public class CalculatorTestsSteps {
 
     @Given("I have input numbers")
     public void iHaveInputNumbers(List<List<String>> numbers) {
-        firstListNum = new ArrayList<>();
-        secondListNum = new ArrayList<>();
-        numbers.get(0).forEach(n -> firstListNum.add(Integer.parseInt(n)));
-        numbers.get(1).forEach(n -> secondListNum.add(Integer.parseInt(n)));
+        listNum = new ArrayList<>();
+        for (List<String> number : numbers) {
+            number.forEach(n -> listNum.add(Integer.parseInt(n)));
+        }
     }
 
     @And("I use operator {operationType}")
     public void iUseOperationTypeOperator(Operations operator) {
         int sum, diff;
         listCalculations = new ArrayList<>();
-        for (int i = 0; i<firstListNum.size(); i++){
-            if (operator.name().equals("sum")){
-                sum = firstListNum.get(i) + secondListNum.get(i);
-                listCalculations.add(sum);
-            } else {
-                diff = firstListNum.get(i) - secondListNum.get(i);
-                listCalculations.add(diff);
+        for (int i = 0; i < listNum.size(); i++) {
+            if (i + 2 < listNum.size()) {
+                if (operator.name().equals("sum")) {
+                    sum = listNum.get(i) + listNum.get(i + 2);
+                    listCalculations.add(sum);
+                } else {
+                    diff = listNum.get(i) - listNum.get(i+2);
+                    listCalculations.add(diff);
+                }
             }
         }
     }
