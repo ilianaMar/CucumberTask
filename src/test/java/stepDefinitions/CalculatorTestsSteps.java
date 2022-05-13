@@ -14,7 +14,6 @@ public class CalculatorTestsSteps {
     private double totalDouble;
     private CalculatorHelper calculator;
     private ArrayList<Integer> firstListNum, secondListNum, listCalculations;
-    private int firstCal, secondCal;
 
     @ParameterType("sum|difference")
     public Operations operationType(String operationType){
@@ -94,11 +93,11 @@ public class CalculatorTestsSteps {
 
     @Then("I print the results")
     public void iPrintTheResults() {
-        String text = "", sign;
+        String text, sign;
 
-        for (int i = 0; i < listCalculations.size(); i++){
-            sign = (listCalculations.get(i) > 0) ? "Positive" : "Negative";
-            text = String.format("%s number is %s", sign, listCalculations.get(i));
+        for (Integer listCalculation : listCalculations) {
+            sign = (listCalculation > 0) ? "Positive" : "Negative";
+            text = String.format("%s number is %s", sign, listCalculation);
             System.out.println(text);
         }
     }
