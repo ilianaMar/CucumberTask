@@ -98,7 +98,7 @@ public class CalculatorTestsSteps {
         String text, sign;
 
         for (Integer listCalculation : listCalculations) {
-            sign = (listCalculation > 0) ? "Positive" : "Negative";
+            sign = (listCalculation >= 0) ? "Positive" : "Negative";
             text = String.format("%s number is %s", sign, listCalculation);
             System.out.println(text);
         }
