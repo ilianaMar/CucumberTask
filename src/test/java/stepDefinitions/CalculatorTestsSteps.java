@@ -84,14 +84,11 @@ public class CalculatorTestsSteps {
         for (int i = 0; i<firstListNum.size(); i++){
             if (operator.name().equals("sum")){
                 sum = firstListNum.get(i) + secondListNum.get(i);
-//                System.out.println(sum);
                 listCalculations.add(sum);
             } else {
                 diff = firstListNum.get(i) - secondListNum.get(i);
-//                System.out.println(diff);
                 listCalculations.add(diff);
             }
-
         }
     }
 
