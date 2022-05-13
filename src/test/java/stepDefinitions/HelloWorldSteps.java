@@ -17,20 +17,4 @@ public class HelloWorldSteps {
     public void returnAnswer(String string) {
         System.out.println(string);
     }
-
-    @Given("I have a Calculator")
-    public void createCalculator() {
-        System.out.println("test");
-    }
-
-    @When("I add {int} and {int}")
-    public void sumNumbers(int a, int b) {
-        System.out.println(a);
-        System.out.println(b);
-    }
-
-    @Then("the sum should be {int}")
-    public void printOutput(int c) {
-        System.out.println(c);
-    }
 }
