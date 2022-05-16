@@ -12,3 +12,10 @@
 - Custom Parameter types
 - Optional text
 - Creating step definitions with standard Java method
+
+### Cucumber: Text Expressions
+- Cucumber Expressions to capture text - {word} and {string}
+- Anonymous expression - {}
+- Use Regex
+- Alternative text
+- Special characters escaping

@@ -80,15 +80,13 @@ public class CalculatorTestsSteps {
     public void iUseOperationTypeOperator(Operations operator) {
         int sum, diff;
         listCalculations = new ArrayList<>();
-        for (int i = 0; i < listNum.size(); i++) {
-            if (i + 2 < listNum.size()) {
-                if (operator.name().equals("sum")) {
-                    sum = listNum.get(i) + listNum.get(i + 2);
-                    listCalculations.add(sum);
-                } else {
-                    diff = listNum.get(i) - listNum.get(i+2);
-                    listCalculations.add(diff);
-                }
+        for (int i = 0; i < listNum.size() - 2; i++) {
+            if (operator.name().equals("sum")) {
+                sum = listNum.get(i) + listNum.get(i + 2);
+                listCalculations.add(sum);
+            } else {
+                diff = listNum.get(i) - listNum.get(i+2);
+                listCalculations.add(diff);
             }
         }
     }
