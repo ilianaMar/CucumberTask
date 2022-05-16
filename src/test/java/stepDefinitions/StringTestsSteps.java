@@ -20,15 +20,12 @@ public class StringTestsSteps {
 
     @When("^I remove character (.)$")
     public void iRemoveCharacter(String character) {
-        System.out.println(character);
         inputString = inputString.replace(character, "");
     }
 
     @Then("I check {word} is equal to my string")
     public void iCheckStringIsEqualToMyString(String string) {
-        System.out.println(stringHelper.compareWorlds(inputString, string, caseSensitive));
         assertEquals(0, stringHelper.compareWorlds(inputString, string, caseSensitive));
-//        assertTrue();
     }
 
     @Given("I use simple sentence {string}")
@@ -69,7 +66,6 @@ public class StringTestsSteps {
 
     @Given("^I use case (sensitive|insensitive) compare$")
     public void iUseCaseSensitiveCompare(String op) {
-        caseSensitive = op.equals("sensitive");
-        System.out.println("caseSensitive " + caseSensitive);
+        caseSensitive = op.equalsIgnoreCase("sensitive");
     }
 }
