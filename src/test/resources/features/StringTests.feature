@@ -18,8 +18,8 @@ Feature: Compare single words
     Given I use simple sentence "_First sentence is set to ..._"
     When I remove sign _
     And I remove another single sign .
-    When I use simple sentence "_Second sentence is set to ..._"
-    When I remove sign _
+    When I use another simple sentence "_Second sentence is set to ..._"
+    And I remove sign _
     And I remove another single sign .
     Then I compare both sentences
 

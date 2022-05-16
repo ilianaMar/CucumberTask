@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringTestsSteps {
-    private String inputString, inputSentence ;
+    private String inputString, inputParagraph;
+    private String inputFirstSentence, inputSecondSentence = "";
     private final StringHelper stringHelper = new StringHelper();
     private final List<String> listWithSentences = new ArrayList<>();
     private boolean caseSensitive = false;
@@ -30,37 +31,44 @@ public class StringTestsSteps {
 
     @Given("I use simple sentence {string}")
     public void iUseSimpleSentence(String sentence) {
-        inputSentence = sentence;
+        inputFirstSentence = sentence;
+    }
+
+    @Given("I use another simple sentence {string}")
+    public void iUseAnotherSimpleSentence(String sentence) {
+        inputSecondSentence = sentence;
     }
 
     @When("^I remove sign ([()\\[\\],;_])$")
     public void iRemoveSingleSign(String sign) {
-        inputSentence = inputSentence.replace(sign, "");
-        listWithSentences.add(inputSentence);
+        if(!inputFirstSentence.isEmpty() && !inputSecondSentence.isEmpty()){
+            inputFirstSentence = inputFirstSentence.replace(sign, "");
+            inputSecondSentence = inputSecondSentence.replace(sign, "");
+        }
     }
 
     @And("^I remove another single sign ([!?.:])$")
     public void iRemoveAnotherSingle(String sign) {
-        inputSentence = inputSentence.replace(sign, "");
-        listWithSentences.add(inputSentence);
+        if(!inputFirstSentence.isEmpty() && !inputSecondSentence.isEmpty()){
+            inputFirstSentence = inputFirstSentence.replace(sign, "");
+            inputSecondSentence = inputSecondSentence.replace(sign, "");
+        }
     }
 
     @Then("I compare both sentences")
     public void iCompareBothSentences() {
-        for (int i = 0; i < listWithSentences.size()-2; i++){
-            assertNotEquals(0,
-                    stringHelper.compareWorlds(listWithSentences.get(i), listWithSentences.get(i+2), caseSensitive));
-        }
+        assertNotEquals(0, stringHelper.compareWorlds(inputFirstSentence, inputSecondSentence, caseSensitive));
+
     }
 
     @Given("I have the paragraph")
-    public void iHaveTheParagraph(String sentence) {
-        inputSentence = sentence;
+    public void iHaveTheParagraph(String paragraph) {
+        inputParagraph = paragraph;
     }
 
     @Then("^I print the (Words count|Word count)$")
     public void iPrintTheWordsCount(String string) {
-        String message = String.format("%s is %s", string, stringHelper.countWords(inputSentence));
+        String message = String.format("%s is %s", string, stringHelper.countWords(inputParagraph));
         System.out.println(message);
     }
 
