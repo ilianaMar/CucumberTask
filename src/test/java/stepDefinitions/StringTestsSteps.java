@@ -4,14 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import helpers.StringHelper;
 import io.cucumber.java.en.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class StringTestsSteps {
     private String inputString, inputParagraph;
     private String inputFirstSentence, inputSecondSentence = "";
     private final StringHelper stringHelper = new StringHelper();
-    private final List<String> listWithSentences = new ArrayList<>();
     private boolean caseSensitive = false;
 
     @Given("I use simple string {string}")
