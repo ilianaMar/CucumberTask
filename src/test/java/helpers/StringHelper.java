@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StringHelper {
-    public boolean compareWorlds(String  firstString, String secondString){
-        firstString = firstString.toLowerCase();
-        secondString = secondString.toLowerCase();
-        return firstString.equals(secondString);
+    public int compareWorlds(String  firstString, String secondString, boolean caseSensitive){
+        if(caseSensitive){
+            return firstString.compareTo(secondString);
+        }else {
+            return firstString.compareToIgnoreCase(secondString);
+        }
     }
 
     public int countWords(String text){

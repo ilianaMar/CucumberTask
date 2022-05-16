@@ -11,20 +11,24 @@ public class StringTestsSteps {
     private String inputString, inputSentence ;
     private final StringHelper stringHelper = new StringHelper();
     private final List<String> listWithSentences = new ArrayList<>();
+    private boolean caseSensitive = false;
 
     @Given("I use simple string {string}")
     public void iUseSimpleString(String string) {
         inputString = string;
     }
 
-    @When("I remove character {string}")
+    @When("^I remove character (.)$")
     public void iRemoveCharacter(String character) {
+        System.out.println(character);
         inputString = inputString.replace(character, "");
     }
 
     @Then("I check {word} is equal to my string")
     public void iCheckStringIsEqualToMyString(String string) {
-        assertTrue(stringHelper.compareWorlds(inputString, string));
+        System.out.println(stringHelper.compareWorlds(inputString, string, caseSensitive));
+        assertEquals(0, stringHelper.compareWorlds(inputString, string, caseSensitive));
+//        assertTrue();
     }
 
     @Given("I use simple sentence {string}")
@@ -47,11 +51,12 @@ public class StringTestsSteps {
     @Then("I compare both sentences")
     public void iCompareBothSentences() {
         for (int i = 0; i < listWithSentences.size()-2; i++){
-            assertFalse(stringHelper.compareWorlds(listWithSentences.get(i), listWithSentences.get(i+2)));
+            assertNotEquals(0,
+                    stringHelper.compareWorlds(listWithSentences.get(i), listWithSentences.get(i+2), caseSensitive));
         }
     }
 
-    @Given("I have the paragraph {string}")
+    @Given("I have the paragraph")
     public void iHaveTheParagraph(String sentence) {
         inputSentence = sentence;
     }
@@ -60,5 +65,11 @@ public class StringTestsSteps {
     public void iPrintTheWordsCount(String string) {
         String message = String.format("%s is %s", string, stringHelper.countWords(inputSentence));
         System.out.println(message);
+    }
+
+    @Given("^I use case (sensitive|insensitive) compare$")
+    public void iUseCaseSensitiveCompare(String op) {
+        caseSensitive = op.equals("sensitive");
+        System.out.println("caseSensitive " + caseSensitive);
     }
 }
